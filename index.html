@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Simple note-taking app - create, organize and find your notes">
+    <title>KeepNote - Simple Notes</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
+    
+    <!-- Highlight.js for syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script>
+        // Configure highlight.js - manual highlighting only
+        hljs.configure({
+            ignoreUnescapedHTML: true,
+            languages: ['javascript', 'python', 'css', 'xml', 'json', 'sql', 'bash']
+        });
+    </script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Ultra-Clean Header -->
+        <header id="search-header">
+            <div class="header-controls">
+                <!-- Left Zone: Logo -->
+                <div class="control-zone-left">
+                    <div class="app-logo">
+                        <svg viewBox="0 0 24 24" fill="none" class="logo-icon">
+                            <path d="M3 7c0 0 6-2 9 0s6 4 9 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M3 12c0 0 6-2 9 0s6 4 9 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M3 17c0 0 4-1.5 6 0s3 2 6 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- Center Zone: Search -->
+                <div class="control-zone-center">
+                    <div class="search-container">
+                        <div class="search-wrapper">
+                            <i class="ph ph-magnifying-glass search-icon"></i>
+                            <input 
+                                type="text" 
+                                id="search-input" 
+                                placeholder="Search notes..."
+                                autocomplete="off"
+                            >
+                            <button id="clear-search" class="clear-button" style="display: none;">
+                                <i class="ph ph-x"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Zone: Actions -->
+                <div class="control-zone-right">
+                    <span class="notes-count" id="total-notes">0</span>
+                    <button id="add-note-btn" class="add-note-button">
+                        <i class="ph ph-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main id="content-area">
+            <!-- Notes Grid -->
+            <div id="notes-view" class="notes-view">
+                <div id="notes-grid" class="notes-grid">
+                    <!-- Notes will be dynamically inserted here -->
+                </div>
+                
+                <!-- Empty state -->
+                <div id="empty-state" class="empty-state" style="display: none;">
+                    <div class="empty-content">
+                        <svg viewBox="0 0 24 24" fill="none" class="empty-icon">
+                            <path d="M3 7c0 0 6-2 9 0s6 4 9 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M3 12c0 0 6-2 9 0s6 4 9 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M3 17c0 0 4-1.5 6 0s3 2 6 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        <h3>No notes yet</h3>
+                        <p>Create your first note to get started</p>
+                        <button class="add-first-note-btn">
+                            <i class="ph ph-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Results -->
+            <div id="search-results" class="search-results" style="display: none;">
+                <div class="results-header">
+                    <h2>Search Results</h2>
+                    <span class="results-count">
+                        Found <span id="results-number">0</span> notes
+                    </span>
+                </div>
+                <div id="results-container" class="results-container">
+                    <!-- Search results will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Note Editor Modal -->
+            <div id="note-modal" class="modal" style="display: none;">
+                <div class="modal-overlay" onclick="closeNoteModal()"></div>
+                <div class="modal-content">
+                    <div class="modal-scroll-container">
+                        <div class="note-editor" id="modal-body">
+                            <div class="modal-title-bar">
+                                <button id="save-note" class="title-bar-action save-action" title="Save (Ctrl+S)">
+                                    <i class="ph ph-floppy-disk"></i>
+                                </button>
+                                <button id="delete-note" class="title-bar-action delete-action" title="Delete" style="display: none;">
+                                    <i class="ph ph-trash"></i>
+                                </button>
+                                <button id="fullscreen-toggle" class="title-bar-action fullscreen-action" title="Toggle Fullscreen">
+                                    <i class="ph ph-corners-out"></i>
+                                </button>
+                                <button class="title-bar-action close-action" onclick="closeNoteModal()" title="Close (Escape)">
+                                    <i class="ph ph-x"></i>
+                                </button>
+                            </div>
+                            
+                            <!-- Unified Input Area -->
+                            <div class="unified-input-container">
+                                <input type="text" id="note-title" class="note-title-input" placeholder="Title">
+                                <div class="rich-text-editor-container">
+                                    <div id="note-content" class="rich-text-editor" contenteditable="true" data-placeholder="Take a note..."></div>
+                                    <div class="custom-scrollbar">
+                                        <div class="scrollbar-thumb"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Rich Text Toolbar (moved to bottom) -->
+                            <div class="rich-text-toolbar">
+                                <!-- Text Styling Group -->
+                                <div class="toolbar-group">
+                                    <button class="toolbar-button" data-command="bold" title="Bold (Ctrl+B)">
+                                        <i class="ph ph-text-b"></i>
+                                    </button>
+                                    <button class="toolbar-button" data-command="italic" title="Italic (Ctrl+I)">
+                                        <i class="ph ph-text-italic"></i>
+                                    </button>
+                                    <button class="toolbar-button" data-command="strikethrough" title="Strikethrough (Ctrl+Shift+X)">
+                                        <i class="ph ph-text-strikethrough"></i>
+                                    </button>
+                                    <button class="toolbar-button" data-command="code" title="Code (Ctrl+Shift+C)">
+                                        <i class="ph ph-code"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="toolbar-divider"></div>
+                                
+                                <!-- Highlight Group -->
+                                <div class="toolbar-group highlight-group">
+                                    <div class="dropdown">
+                                        <button class="toolbar-button dropdown-toggle" title="Highlight Text">
+                                            <i class="ph ph-highlighter-circle"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <button class="dropdown-item" data-command="highlightYellow" title="Yellow Highlight">
+                                                <span class="highlight-sample" style="background: #fff475;"></span>
+                                                Yellow
+                                            </button>
+                                            <button class="dropdown-item" data-command="highlightGreen" title="Green Highlight">
+                                                <span class="highlight-sample" style="background: #ccff90;"></span>
+                                                Green
+                                            </button>
+                                            <button class="dropdown-item" data-command="highlightBlue" title="Blue Highlight">
+                                                <span class="highlight-sample" style="background: #aecbfa;"></span>
+                                                Blue
+                                            </button>
+                                            <button class="dropdown-item" data-command="highlightPink" title="Pink Highlight">
+                                                <span class="highlight-sample" style="background: #f28b82;"></span>
+                                                Pink
+                                            </button>
+                                            <div class="dropdown-divider"></div>
+                                            <button class="dropdown-item" data-command="removeHighlight" title="Remove Highlight">
+                                                <i class="ph ph-eraser"></i>
+                                                Remove
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="toolbar-divider"></div>
+                                
+                                <!-- Headings Group -->
+                                <div class="toolbar-group headings-group">
+                                    <div class="dropdown">
+                                        <button class="toolbar-button dropdown-toggle" title="Headings">
+                                            <i class="ph ph-text-h"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <button class="dropdown-item" data-command="formatParagraph" title="Normal Text">
+                                                Normal
+                                            </button>
+                                            <button class="dropdown-item" data-command="formatH1" title="Heading 1">
+                                                <strong>Heading 1</strong>
+                                            </button>
+                                            <button class="dropdown-item" data-command="formatH2" title="Heading 2">
+                                                <strong>Heading 2</strong>
+                                            </button>
+                                            <button class="dropdown-item" data-command="formatH3" title="Heading 3">
+                                                <strong>Heading 3</strong>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="toolbar-divider"></div>
+                                
+                                <!-- Structure Group -->
+                                <div class="toolbar-group">
+                                    <button class="toolbar-button" data-command="insertUnorderedList" title="Bullet List (Ctrl+Shift+L)">
+                                        <i class="ph ph-list-bullets"></i>
+                                    </button>
+                                    <button class="toolbar-button" data-command="insertOrderedList" title="Numbered List (Ctrl+Shift+N)">
+                                        <i class="ph ph-list-numbers"></i>
+                                    </button>
+                                    <button class="toolbar-button" data-command="insertCheckboxList" title="Checkbox List (Ctrl+Shift+T)">
+                                        <i class="ph ph-check-square"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="toolbar-divider"></div>
+                                
+                                <!-- Indent Group -->
+                                <div class="toolbar-group">
+                                    <button class="toolbar-button" data-command="outdent" title="Decrease Indent (Shift+Tab)">
+                                        <i class="ph ph-text-outdent"></i>
+                                    </button>
+                                    <button class="toolbar-button" data-command="indent" title="Increase Indent (Tab)">
+                                        <i class="ph ph-text-indent"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="toolbar-divider"></div>
+                                
+                                <!-- Link & Block Group -->
+                                <div class="toolbar-group">
+                                    <button class="toolbar-button" data-command="createLink" title="Insert Link (Ctrl+K)">
+                                        <i class="ph ph-link"></i>
+                                    </button>
+                                    <button class="toolbar-button" data-command="insertBlockquote" title="Quote">
+                                        <i class="ph ph-quotes"></i>
+                                    </button>
+                                    <button class="toolbar-button" data-command="insertHorizontalRule" title="Horizontal Line">
+                                        <i class="ph ph-minus"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="toolbar-divider"></div>
+                                
+                                <!-- Size Group -->
+                                <div class="toolbar-group">
+                                    <button class="toolbar-button" data-command="increaseFontSize" title="Increase Font">
+                                        <i class="ph ph-text-aa"></i>
+                                    </button>
+                                    <button class="toolbar-button" data-command="decreaseFontSize" title="Decrease Font">
+                                        <i class="ph ph-text-aa" style="transform: scale(0.8);"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="toolbar-divider"></div>
+                                
+                                <!-- Alignment Group -->
+                                <div class="toolbar-group">
+                                    <button class="toolbar-button" data-command="justifyLeft" title="Align Left">
+                                        <i class="ph ph-text-align-left"></i>
+                                    </button>
+                                    <button class="toolbar-button" data-command="justifyCenter" title="Align Center">
+                                        <i class="ph ph-text-align-center"></i>
+                                    </button>
+                                    <button class="toolbar-button" data-command="justifyRight" title="Align Right">
+                                        <i class="ph ph-text-align-right"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="toolbar-divider"></div>
+                                
+                                <!-- Actions Group -->
+                                <div class="toolbar-group">
+                                    <button class="toolbar-button" data-command="undo" title="Undo (Ctrl+Z)">
+                                        <i class="ph ph-arrow-counter-clockwise"></i>
+                                    </button>
+                                    <button class="toolbar-button" data-command="redo" title="Redo (Ctrl+Y)">
+                                        <i class="ph ph-arrow-clockwise"></i>
+                                    </button>
+                                    <button class="toolbar-button" data-command="removeFormat" title="Clear Formatting">
+                                        <i class="ph ph-text-t"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Status Bar -->
+                            <div class="note-status-bar">
+                                <div class="status-content">
+                                    <div class="status-stats">
+                                        <span id="word-count">0</span> words • <span id="char-count">0</span> characters
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!-- Resize Handle -->
+                    <div class="modal-resize-handle"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="RichTextEditor.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
+

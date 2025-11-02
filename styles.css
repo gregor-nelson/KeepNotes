@@ -1,0 +1,1681 @@
+/* ============================================
+   KeepNote - Simple Note App Styles
+   Based on VimCheat resume-inspired design
+   ============================================ */
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Color Palette - Resume-inspired */
+    --gray-900: #2c2c2c;
+    --gray-800: #3a3a3a;
+    --gray-700: #4a4a4a;
+    --gray-600: #5a5a5a;
+    --gray-500: #6a6a6a;
+    --gray-400: #8a8a8a;
+    --gray-300: #a0a0a0;
+    --gray-200: #c4c4c4;
+    --gray-100: #e5e5e5;
+    --gray-50: #f4f4f4;
+    --white: #fdfdfd;
+    
+    /* Note colors */
+    --note-yellow: #fff475;
+    --note-orange: #fbbc04;
+    --note-pink: #f28b82;
+    --note-purple: #d7aefb;
+    --note-blue: #aecbfa;
+    --note-green: #ccff90;
+    
+    /* Typography */
+    --font-main: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+    
+    /* Spacing */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+    
+    /* Transitions */
+    --transition: all 0.2s ease;
+}
+
+body {
+    font-family: var(--font-main);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--gray-900);
+    background: var(--gray-50);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Typography */
+h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--gray-800);
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--gray-800);
+}
+
+h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--gray-700);
+}
+
+p {
+    color: var(--gray-600);
+}
+
+/* App Container */
+#app {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    background: var(--white);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Ultra-Clean Header - Based on TTS-Server Design */
+#search-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-100);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+/* Header Controls - Three-zone layout */
+.header-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-md) var(--space-xl);
+    height: 72px;
+    position: relative;
+}
+
+/* Left Zone - Logo */
+.control-zone-left {
+    position: absolute;
+    left: var(--space-xl);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.app-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: var(--gray-700);
+}
+
+.app-logo .logo-icon {
+    width: 24px;
+    height: 24px;
+    color: inherit;
+}
+
+/* Center Zone - Search */
+.control-zone-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+}
+
+.search-container {
+    max-width: 400px;
+    width: 400px;
+}
+
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 6px;
+    transition: var(--transition);
+    height: 40px;
+}
+
+.search-wrapper:focus-within {
+    border-color: var(--gray-300);
+    background: var(--white);
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.04);
+}
+
+.search-icon {
+    position: absolute;
+    left: var(--space-sm);
+    width: 16px;
+    height: 16px;
+    color: var(--gray-400);
+    font-size: 16px;
+}
+
+#search-input {
+    flex: 1;
+    padding: 8px 12px;
+    padding-left: calc(var(--space-sm) + 16px + 8px);
+    border: none;
+    background: transparent;
+    font-size: 0.875rem;
+    font-family: var(--font-main);
+    color: var(--gray-700);
+    outline: none;
+}
+
+#search-input::placeholder {
+    color: var(--gray-400);
+}
+
+.clear-button {
+    position: absolute;
+    right: var(--space-xs);
+    padding: var(--space-xs);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--gray-400);
+    transition: var(--transition);
+    font-size: 14px;
+    border-radius: 3px;
+}
+
+.clear-button:hover {
+    color: var(--gray-700);
+    background: var(--gray-100);
+}
+
+/* Right Zone - Actions */
+.control-zone-right {
+    position: absolute;
+    right: var(--space-xl);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--space-md);
+}
+
+.notes-count {
+    font-size: 0.875rem;
+    color: var(--gray-500);
+    font-weight: 500;
+}
+
+/* Add Note Button - Clean minimal design */
+.add-note-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    color: var(--gray-500);
+    border: none;
+    border-radius: 6px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.add-note-button:hover {
+    background: var(--gray-100);
+    color: var(--gray-700);
+}
+
+.add-note-button:active {
+    background: var(--gray-200);
+}
+
+.add-note-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+/* Responsive Design for Header */
+@media (max-width: 768px) {
+    .header-controls {
+        padding: var(--space-md) var(--space-lg);
+        height: 64px;
+    }
+    
+    .search-container {
+        max-width: 250px;
+        width: 250px;
+    }
+    
+    .add-note-button {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-controls {
+        padding: var(--space-md) var(--space-md);
+    }
+    
+    .control-zone-left {
+        left: var(--space-md);
+    }
+    
+    .control-zone-right {
+        right: var(--space-md);
+    }
+    
+    .search-container {
+        max-width: 200px;
+        width: 200px;
+    }
+    
+    .app-logo .logo-icon {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .notes-count {
+        display: none;
+    }
+}
+
+/* Main Content */
+#content-area {
+    flex: 1;
+    padding: var(--space-xl);
+}
+
+/* Notes Grid - True Masonry Layout */
+.notes-grid {
+    position: relative;
+    animation: fadeIn 0.3s ease;
+    /* JavaScript will manage the layout */
+}
+
+/* Note Card - Masonry Positioned */
+.note-card {
+    padding: var(--space-lg);
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: absolute;
+    overflow: hidden;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: translateY(20px) translateZ(0);
+    will-change: transform, opacity, left, top;
+    backface-visibility: hidden;
+    /* Initial state - will be animated by JavaScript when positioned */
+}
+
+.note-card.positioned {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+}
+
+/* Card Height Classes */
+.note-card.height-short {
+    min-height: 120px;
+    max-height: 200px;
+}
+
+.note-card.height-medium {
+    min-height: 200px;
+    max-height: 350px;
+}
+
+.note-card.height-large {
+    min-height: 350px;
+    max-height: 500px;
+}
+
+/* Drag and Drop States */
+.note-card.dragging {
+    opacity: 0.8;
+    transform: scale(1.02) rotate(2deg) translateZ(0);
+    z-index: 1000;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    cursor: grabbing;
+    transition: none !important; /* Disable transitions during drag */
+}
+
+.note-card.drag-over {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.note-card {
+    cursor: grab;
+    user-select: none;
+}
+
+/* Drop target indicators */
+.note-card.drop-target {
+    transition: all 0.2s ease;
+}
+
+.note-card.drop-before {
+    border-top: 3px solid var(--note-blue);
+    transform: translateY(2px);
+}
+
+.note-card.drop-after {
+    border-bottom: 3px solid var(--note-blue);
+    transform: translateY(-2px);
+}
+
+.note-card.drop-before,
+.note-card.drop-after {
+    box-shadow: 0 4px 12px rgba(174, 203, 250, 0.3);
+}
+
+/* Ghost element for dragging */
+.note-card.ghost {
+    opacity: 0.8;
+    transform: rotate(5deg) scale(0.95);
+    pointer-events: none;
+    z-index: 1001;
+}
+
+.note-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--gray-300);
+}
+
+/* Card Actions */
+.card-actions {
+    position: absolute;
+    top: var(--space-sm);
+    right: var(--space-sm);
+    opacity: 0;
+    transition: var(--transition);
+    z-index: 10;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-xs);
+}
+
+.note-card:hover .card-actions {
+    opacity: 1;
+}
+
+/* Color Picker */
+.card-color-picker {
+    position: relative;
+}
+
+.color-picker-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--gray-500);
+    transition: var(--transition);
+    font-size: 0;
+    line-height: 1;
+}
+
+.color-picker-toggle:hover {
+    background: var(--gray-100);
+    color: var(--gray-700);
+    transform: scale(1.1);
+}
+
+.color-picker-toggle i {
+    font-size: 16px;
+    display: block;
+    line-height: 1;
+}
+
+.color-options {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: var(--space-xs);
+    padding: var(--space-xs);
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: none;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    min-width: 120px;
+}
+
+.color-options.visible {
+    display: grid;
+}
+
+.color-option {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--gray-300);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition);
+    background: var(--white);
+    position: relative;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+    border-color: var(--gray-700);
+}
+
+/* Color option backgrounds */
+.color-option[data-color="white"] {
+    background: var(--white);
+    border-color: var(--gray-400);
+}
+
+.color-option[data-color="yellow"] {
+    background: var(--note-yellow);
+    border-color: #f0d000;
+}
+
+.color-option[data-color="orange"] {
+    background: var(--note-orange);
+    border-color: #e8a200;
+}
+
+.color-option[data-color="pink"] {
+    background: var(--note-pink);
+    border-color: #e06b61;
+}
+
+.color-option[data-color="purple"] {
+    background: var(--note-purple);
+    border-color: #c791e8;
+}
+
+.color-option[data-color="blue"] {
+    background: var(--note-blue);
+    border-color: #92b8e8;
+}
+
+.color-option[data-color="green"] {
+    background: var(--note-green);
+    border-color: #a8d472;
+}
+
+/* Delete Button */
+.card-delete-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--gray-500);
+    transition: var(--transition);
+    font-size: 0;
+    line-height: 1;
+}
+
+.card-delete-btn:hover {
+    background: var(--note-pink);
+    color: var(--white);
+    transform: scale(1.1);
+}
+
+.card-delete-btn i {
+    font-size: 16px;
+    display: block;
+    line-height: 1;
+}
+
+.note-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: var(--space-sm);
+    line-height: 1.3;
+}
+
+.note-content {
+    color: var(--gray-600);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    flex: 1;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 20;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+}
+
+.note-meta {
+    margin-top: var(--space-md);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--gray-100);
+    font-size: 0.8125rem;
+    color: var(--gray-400);
+}
+
+/* Text contrast adjustments for colored backgrounds */
+.note-card[style*="--note-yellow"] .note-title,
+.note-card[style*="--note-orange"] .note-title {
+    color: var(--gray-900);
+}
+
+.note-card[style*="--note-yellow"] .note-content,
+.note-card[style*="--note-orange"] .note-content {
+    color: var(--gray-700);
+}
+
+.note-card[style*="--note-yellow"] .note-meta,
+.note-card[style*="--note-orange"] .note-meta {
+    color: var(--gray-500);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Empty State */
+.empty-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    text-align: center;
+}
+
+.empty-content .empty-icon {
+    width: 48px;
+    height: 48px;
+    color: var(--gray-300);
+    margin-bottom: var(--space-lg);
+}
+
+.empty-content h3 {
+    margin-bottom: var(--space-sm);
+    color: var(--gray-600);
+}
+
+.empty-content p {
+    margin-bottom: var(--space-lg);
+    color: var(--gray-500);
+}
+
+.add-first-note-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--gray-700);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: var(--transition);
+    margin: 0 auto;
+}
+
+.add-first-note-btn:hover {
+    background: var(--gray-800);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.add-first-note-btn:active {
+    background: var(--gray-200);
+}
+
+.add-first-note-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-sm);
+}
+
+/* Floating modal states */
+.modal.floating {
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0;
+}
+
+.modal.floating .modal-content {
+    position: absolute;
+    max-width: none;
+    max-height: none;
+    width: 650px;
+    height: auto;
+    min-width: 400px;
+    min-height: 300px;
+    resize: none;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+}
+
+.modal-content {
+    position: relative;
+    background: var(--white);
+    border-radius: 12px;
+    max-width: 650px;
+    width: 100%;
+    height: auto;
+    max-height: 95vh;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Windows-style Title Bar */
+.modal-title-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--space-xs);
+    cursor: grab;
+    user-select: none;
+    flex: 0 0 auto;
+}
+
+.modal-title-bar.dragging {
+    cursor: grabbing;
+}
+
+.modal-title-bar:active {
+    cursor: grabbing;
+}
+
+.modal-content.maximized .modal-title-bar {
+    cursor: pointer;
+}
+
+.modal-content.maximized .modal-title-bar:active {
+    cursor: pointer;
+}
+
+.title-bar-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0;
+    line-height: 1;
+}
+
+/* Save Action - Using app's primary color */
+.save-action {
+    color: var(--gray-800);
+    background: transparent;
+}
+
+.save-action:hover {
+    color: var(--white);
+    background: var(--gray-900);
+    transform: translateY(-1px);
+}
+
+/* Delete Action - Using app's note pink color */
+.delete-action {
+    color: var(--note-pink);
+    background: transparent;
+}
+
+.delete-action:hover {
+    color: var(--white);
+    background: var(--note-pink);
+    transform: translateY(-1px);
+}
+
+/* Fullscreen Action - Using app's blue color */
+.fullscreen-action {
+    color: var(--gray-600);
+    background: transparent;
+}
+
+.fullscreen-action:hover {
+    color: var(--white);
+    background: var(--note-blue);
+    transform: translateY(-1px);
+}
+
+.fullscreen-action.maximized {
+    color: var(--note-blue);
+    background: var(--gray-100);
+}
+
+.fullscreen-action.maximized:hover {
+    color: var(--white);
+    background: var(--note-blue);
+}
+
+/* Close Action - Neutral using app grays */
+.close-action {
+    color: var(--gray-500);
+    background: transparent;
+}
+
+.close-action:hover {
+    color: var(--gray-800);
+    background: var(--gray-100);
+    transform: translateY(-1px);
+}
+
+.title-bar-action i {
+    font-size: 18px;
+    line-height: 1;
+    display: block;
+}
+
+/* Modal Scrollbar Container - simplified */
+.modal-scroll-container {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* Allow flex item to shrink */
+}
+
+/* Note Editor - no scrolling, fully responsive */
+#modal-body {
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    flex: 1;
+    min-height: 0; /* Allow flex shrinking */
+}
+
+.note-editor {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    flex: 1;
+    min-height: 0; /* Allow flex item to shrink */
+}
+
+/* Unified Input Container */
+.unified-input-container {
+    background: var(--gray-50);
+    transition: var(--transition);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    border-radius: 6px;
+}
+
+.unified-input-container:focus-within {
+    background: var(--white);
+}
+
+.note-title-input {
+    width: 100%;
+    padding: var(--space-md) var(--space-md) var(--space-xs) var(--space-md);
+    border: none;
+    font-size: 1.25rem;
+    font-weight: 600;
+    font-family: var(--font-main);
+    color: var(--gray-800);
+    background: transparent;
+    transition: var(--transition);
+}
+
+.note-title-input:focus {
+    outline: none;
+}
+
+/* Rich Text Toolbar (moved to bottom) */
+.rich-text-toolbar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm);
+    background: var(--gray-50);
+    border-radius: 6px;
+    margin-top: var(--space-sm);
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.toolbar-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    color: var(--gray-600);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 14px;
+}
+
+.toolbar-button:hover {
+    background: var(--gray-200);
+    color: var(--gray-800);
+}
+
+.toolbar-button:active,
+.toolbar-button.active {
+    background: var(--gray-300);
+    color: var(--gray-900);
+}
+
+.toolbar-button i {
+    font-size: 16px;
+}
+
+.toolbar-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--gray-300);
+    margin: 0 var(--space-xs);
+}
+
+/* Dropdown Menus */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 0;
+    height: 0;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-top: 3px solid currentColor;
+    opacity: 0.6;
+}
+
+.dropdown-menu {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    min-width: 140px;
+    background: var(--white);
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: none;
+    padding: var(--space-xs);
+    margin-bottom: 4px;
+    overflow: hidden;
+}
+
+.dropdown.active .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu.position-below {
+    bottom: auto;
+    top: 100%;
+    margin-bottom: 0;
+    margin-top: 4px;
+}
+
+.dropdown.active .dropdown-toggle.position-below::after {
+    border-top: none;
+    border-bottom: 3px solid currentColor;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    width: 100%;
+    padding: var(--space-xs) var(--space-sm);
+    background: transparent;
+    border: none;
+    color: var(--gray-700);
+    font-family: var(--font-main);
+    font-size: 0.875rem;
+    font-weight: 400;
+    text-align: left;
+    cursor: pointer;
+    transition: var(--transition);
+    border-radius: 4px;
+    margin: 1px 0;
+}
+
+/* Heading dropdown items with distinct styles */
+.dropdown-item[data-command="formatH1"] {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gray-800);
+}
+
+.dropdown-item[data-command="formatH2"] {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--gray-700);
+}
+
+.dropdown-item[data-command="formatH3"] {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--gray-700);
+}
+
+.dropdown-item[data-command="formatParagraph"] {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--gray-600);
+}
+
+.dropdown-item:hover {
+    background: var(--gray-100);
+    color: var(--gray-900);
+}
+
+.dropdown-item:first-child {
+    margin-top: 0;
+}
+
+.dropdown-item:last-child {
+    margin-bottom: 0;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: var(--gray-200);
+    margin: var(--space-xs);
+    border-radius: 1px;
+}
+
+/* Highlight Samples */
+.highlight-sample {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+}
+
+/* Checkbox Items */
+.checkbox-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-xs);
+    margin: var(--space-xs) 0;
+    padding: var(--space-xs);
+    background: var(--gray-50);
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.checkbox-item:hover {
+    background: var(--gray-100);
+}
+
+.checkbox-input {
+    margin: 0;
+    margin-top: 2px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.checkbox-text {
+    flex: 1;
+    outline: none;
+    background: transparent;
+    border: none;
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+    line-height: 1.5;
+    transition: var(--transition);
+}
+
+.checkbox-text:focus {
+    background: var(--white);
+    border-radius: 2px;
+    padding: 2px 4px;
+    margin: -2px -4px;
+}
+
+/* Rich Text Editor Container */
+.rich-text-editor-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+/* Rich Text Editor */
+.rich-text-editor {
+    width: 100%;
+    min-height: 200px;
+    max-height: 400px;
+    padding: var(--space-xs) var(--space-md) var(--space-md) var(--space-md);
+    border: none;
+    font-size: 1rem;
+    font-family: var(--font-main);
+    color: var(--gray-800);
+    background: transparent;
+    transition: var(--transition);
+    outline: none;
+    overflow-y: auto;
+    line-height: 1.6;
+    resize: none;
+    /* Hide native scrollbars */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.rich-text-editor::-webkit-scrollbar {
+    display: none;
+}
+
+.rich-text-editor:focus {
+    /* No individual focus styles - handled by unified container */
+}
+
+.rich-text-editor:empty:before {
+    content: attr(data-placeholder);
+    color: var(--gray-400);
+    pointer-events: none;
+}
+
+/* Custom scrollbar track - positioned relative to rich text editor */
+.custom-scrollbar {
+    position: absolute;
+    right: 8px;
+    top: 8px; /* Small margin from editor top */
+    bottom: 8px; /* Small margin from editor bottom */
+    width: 3px;
+    background: transparent;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 20; /* Above editor content */
+}
+
+.custom-scrollbar.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Custom scrollbar thumb */
+.scrollbar-thumb {
+    position: absolute;
+    width: 100%;
+    min-height: 30px;
+    background: var(--gray-300);
+    border-radius: 1.5px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    z-index: 21; /* Above scrollbar track */
+}
+
+.scrollbar-thumb:hover {
+    background: var(--gray-400);
+}
+
+/* Rich text content styling */
+.rich-text-editor strong,
+.rich-text-editor b {
+    font-weight: 600;
+}
+
+.rich-text-editor em,
+.rich-text-editor i {
+    font-style: italic;
+}
+
+.rich-text-editor s {
+    text-decoration: line-through;
+}
+
+.rich-text-editor u {
+    text-decoration: underline;
+}
+
+/* Inline code styling - only for non-highlighted code */
+.rich-text-editor code:not([class*="language-"]):not(.hljs) {
+    background: var(--gray-100);
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+}
+
+/* Specific styling for inline-code class */
+.rich-text-editor code.inline-code {
+    background: var(--gray-100);
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+}
+
+/* Multi-line code blocks - let highlight.js handle background colors */
+.rich-text-editor pre {
+    border-radius: 6px;
+    padding: var(--space-md);
+    margin: var(--space-sm) 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    white-space: pre;
+    tab-size: 4;
+    /* Only set background for non-highlighted code blocks */
+    background: var(--gray-100);
+}
+
+/* For highlighted code blocks, let highlight.js control the background */
+.rich-text-editor pre:has(code[class*="language-"]),
+.rich-text-editor pre:has(code.hljs) {
+    background: transparent;
+}
+
+.rich-text-editor pre code,
+.rich-text-editor pre code.plain-code-block {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    display: block;
+    white-space: pre;
+    tab-size: 4;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+/* Simple code styling - let highlight.js do its thing */
+.rich-text-editor code.inline-code {
+    background: var(--gray-100);
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+}
+
+/* Let highlight.js use its default theme colors and formatting */
+
+/* Headings */
+.rich-text-editor h1 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: var(--space-lg) 0 var(--space-md);
+    color: var(--gray-800);
+}
+
+.rich-text-editor h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: var(--space-md) 0 var(--space-sm);
+    color: var(--gray-800);
+}
+
+.rich-text-editor h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: var(--space-md) 0 var(--space-sm);
+    color: var(--gray-700);
+}
+
+/* Lists */
+.rich-text-editor ul,
+.rich-text-editor ol {
+    margin: var(--space-sm) 0;
+    padding-left: var(--space-xl);
+}
+
+.rich-text-editor li {
+    margin: 2px 0;
+}
+
+.rich-text-editor ul ul,
+.rich-text-editor ol ol,
+.rich-text-editor ul ol,
+.rich-text-editor ol ul {
+    margin: 0;
+}
+
+/* Blockquotes */
+.rich-text-editor blockquote {
+    margin: var(--space-md) 0;
+    padding: var(--space-sm) var(--space-md);
+    background: var(--gray-50);
+    border-left: 4px solid var(--gray-300);
+    font-style: italic;
+    color: var(--gray-600);
+}
+
+/* Horizontal Rules */
+.rich-text-editor hr {
+    margin: var(--space-lg) 0;
+    border: none;
+    height: 2px;
+    background: var(--gray-200);
+    border-radius: 1px;
+}
+
+/* Links */
+.rich-text-editor a {
+    color: var(--gray-800);
+    text-decoration: underline;
+    text-decoration-color: var(--gray-400);
+    transition: var(--transition);
+}
+
+.rich-text-editor a:hover {
+    color: var(--gray-900);
+    text-decoration-color: var(--gray-600);
+}
+
+/* Paragraphs */
+.rich-text-editor p {
+    margin: var(--space-sm) 0;
+}
+
+.rich-text-editor p:first-child {
+    margin-top: 0;
+}
+
+.rich-text-editor p:last-child {
+    margin-bottom: 0;
+}
+
+/* Highlighted text */
+.rich-text-editor span[style*="background-color"] {
+    border-radius: 2px;
+    padding: 1px 2px;
+}
+
+/* Legacy textarea styles - keep for backward compatibility */
+.note-content-textarea {
+    width: 100%;
+    min-height: 200px;
+    padding: var(--space-md);
+    border: 2px solid var(--gray-200);
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: var(--font-main);
+    color: var(--gray-800);
+    background: var(--gray-50);
+    resize: vertical;
+    transition: var(--transition);
+}
+
+.note-content-textarea:focus {
+    outline: none;
+    border-color: var(--gray-700);
+    background: var(--white);
+}
+
+
+/* Search Results */
+.search-results {
+    animation: fadeIn 0.3s ease;
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 2px solid var(--gray-200);
+}
+
+.results-count {
+    color: var(--gray-500);
+}
+
+#results-number {
+    font-weight: 600;
+    color: var(--gray-700);
+}
+
+.results-container {
+    position: relative;
+    /* JavaScript will manage the masonry layout */
+}
+
+/* Resize Handle */
+.modal-resize-handle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    cursor: nw-resize;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.modal-resize-handle::after {
+    content: '';
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    width: 12px;
+    height: 12px;
+    background-image: 
+        linear-gradient(135deg, transparent 0%, transparent 30%, var(--gray-400) 30%, var(--gray-400) 35%, transparent 35%, transparent 65%, var(--gray-400) 65%, var(--gray-400) 70%, transparent 70%),
+        linear-gradient(135deg, transparent 0%, transparent 40%, var(--gray-400) 40%, var(--gray-400) 45%, transparent 45%, transparent 75%, var(--gray-400) 75%, var(--gray-400) 80%, transparent 80%);
+    background-size: 6px 6px;
+    background-position: 0 0, 3px 3px;
+}
+
+.modal-content:hover .modal-resize-handle {
+    opacity: 1;
+}
+
+.modal-resize-handle:hover {
+    opacity: 1;
+}
+
+.modal-resize-handle:hover::after {
+    background-image: 
+        linear-gradient(135deg, transparent 0%, transparent 30%, var(--gray-600) 30%, var(--gray-600) 35%, transparent 35%, transparent 65%, var(--gray-600) 65%, var(--gray-600) 70%, transparent 70%),
+        linear-gradient(135deg, transparent 0%, transparent 40%, var(--gray-600) 40%, var(--gray-600) 45%, transparent 45%, transparent 75%, var(--gray-600) 75%, var(--gray-600) 80%, transparent 80%);
+}
+
+/* Center resize mode indicator */
+.modal-resize-handle.center-resize {
+    cursor: crosshair;
+}
+
+.modal-resize-handle.center-resize::after {
+    background-image: 
+        linear-gradient(135deg, transparent 0%, transparent 30%, var(--note-blue) 30%, var(--note-blue) 35%, transparent 35%, transparent 65%, var(--note-blue) 65%, var(--note-blue) 70%, transparent 70%),
+        linear-gradient(135deg, transparent 0%, transparent 40%, var(--note-blue) 40%, var(--note-blue) 45%, transparent 45%, transparent 75%, var(--note-blue) 75%, var(--note-blue) 80%, transparent 80%);
+}
+
+/* Maximized modal state */
+.modal-content.maximized {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border-radius: 8px;
+}
+
+.modal-content.maximized .modal-resize-handle {
+    display: none;
+}
+
+/* Hide fullscreen button on touch devices */
+@media (pointer: coarse) {
+    .fullscreen-action {
+        display: none !important;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Enhanced Responsive Behavior - Masonry Layout */
+/* JavaScript masonry handles the responsive behavior dynamically */
+
+@media (max-width: 768px) {
+    .header-content {
+        padding: var(--space-lg) var(--space-md) var(--space-md);
+    }
+    
+    .main-title {
+        font-size: 1.75rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    .stats-bar {
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+    
+    #content-area {
+        padding: var(--space-md);
+    }
+    
+    .modal {
+        padding: 20px 20px;
+        align-items: flex-start;
+    }
+    
+    .modal-content {
+        height: 85vh;
+        max-height: 85vh;
+    }
+    
+    #modal-body {
+        padding: var(--space-sm);
+    }
+    
+    .rich-text-editor {
+        min-height: 150px;
+        max-height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-title {
+        font-size: 1.5rem;
+    }
+    
+    .modal {
+        padding: 20px;
+        align-items: flex-start;
+    }
+    
+    .modal-content {
+        height: 85vh;
+        max-height: 85vh;
+        border-radius: 8px;
+    }
+    
+    #modal-body {
+        padding: var(--space-sm);
+    }
+    
+    .rich-text-editor {
+        min-height: 120px;
+        max-height: 150px;
+        font-size: 0.9375rem;
+    }
+    
+    .rich-text-toolbar {
+        padding: var(--space-xs);
+    }
+    
+    .toolbar-button {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+    
+    .toolbar-button i {
+        font-size: 14px;
+    }
+    
+    /* Dropdown adjustments for mobile */
+    .dropdown-menu {
+        min-width: 120px;
+    }
+    
+    .dropdown-item {
+        padding: var(--space-sm) var(--space-xs);
+        font-size: 0.8125rem;
+        min-height: 36px; /* Better touch target */
+    }
+    
+    .highlight-sample {
+        width: 12px;
+        height: 12px;
+    }
+    
+    /* Checkbox items mobile */
+    .checkbox-item {
+        padding: var(--space-xs);
+        margin: var(--space-xs) 0;
+    }
+    
+    .checkbox-input {
+        width: 14px;
+        height: 14px;
+    }
+    
+    /* Ensure dropdowns don't go off screen on small devices */
+    .dropdown-menu {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+    
+    /* Adjust dropdown positioning for very small screens */
+    @media (max-height: 500px) {
+        .dropdown-menu {
+            bottom: auto;
+            top: 100%;
+            margin-bottom: 0;
+            margin-top: 4px;
+        }
+        
+        .dropdown-toggle::after {
+            border-top: none;
+            border-bottom: 3px solid currentColor;
+        }
+    }
+    
+    /* Title bar responsive adjustments */
+    .modal-title-bar {
+        gap: 2px;
+    }
+    
+    .title-bar-action {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .title-bar-action i {
+        font-size: 16px;
+    }
+}
+
+/* ============================================
+   Note Status Bar - Clean minimal design
+   ============================================ */
+
+.note-status-bar {
+    background: var(--gray-50);
+    border-top: 1px solid var(--gray-200);
+    padding: var(--space-xs) var(--space-md);
+    flex-shrink: 0;
+    margin-top: auto;
+}
+
+.note-status-bar .status-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.note-status-bar .status-stats {
+    font-size: 0.75rem;
+    color: var(--gray-400);
+    font-family: var(--font-main);
+    font-weight: 400;
+}
+
+.note-status-bar .status-stats span {
+    color: var(--gray-500);
+}
+
