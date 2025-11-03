@@ -1781,12 +1781,20 @@ class ThemeManager {
     }
 
     init() {
+        // Prevent transitions on initial page load
+        document.body.classList.add('no-transition');
+
         // Load saved theme or use dark as default
         const savedTheme = localStorage.getItem(this.themeKey);
         this.currentTheme = savedTheme || 'dark';
 
         // Apply the theme
         this.applyTheme(this.currentTheme);
+
+        // Remove no-transition class after a short delay to enable smooth transitions
+        setTimeout(() => {
+            document.body.classList.remove('no-transition');
+        }, 50);
 
         // Bind toggle button if it exists
         const toggleBtn = document.getElementById('theme-toggle-btn');
