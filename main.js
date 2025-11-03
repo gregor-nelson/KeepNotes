@@ -6,6 +6,7 @@
 // ==== CONFIGURATION ====
 const CONFIG = {
     storageKey: 'keepnote-data',
+    themeKey: 'keepnote-theme',
     searchThreshold: 0.3,
     minSearchLength: 2,
     debounceDelay: 150,
@@ -1772,28 +1773,102 @@ function closeNoteModal() {
     app.uiManager.hideModal();
 }
 
+// ==== THEME MANAGER ====
+class ThemeManager {
+    constructor() {
+        this.themeKey = CONFIG.themeKey;
+        this.currentTheme = 'dark'; // Default theme
+    }
+
+    init() {
+        // Load saved theme or use dark as default
+        const savedTheme = localStorage.getItem(this.themeKey);
+        this.currentTheme = savedTheme || 'dark';
+
+        // Apply the theme
+        this.applyTheme(this.currentTheme);
+
+        // Bind toggle button if it exists
+        const toggleBtn = document.getElementById('theme-toggle-btn');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => this.toggleTheme());
+            this.updateToggleIcon();
+        }
+
+        console.log(`Theme initialized: ${this.currentTheme}`);
+    }
+
+    applyTheme(theme) {
+        const body = document.body;
+
+        if (theme === 'light') {
+            body.classList.add('light-mode');
+        } else {
+            body.classList.remove('light-mode');
+        }
+
+        this.currentTheme = theme;
+        this.updateToggleIcon();
+    }
+
+    toggleTheme() {
+        const newTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+        this.setTheme(newTheme);
+    }
+
+    setTheme(theme) {
+        this.applyTheme(theme);
+        localStorage.setItem(this.themeKey, theme);
+        console.log(`Theme changed to: ${theme}`);
+    }
+
+    updateToggleIcon() {
+        const toggleBtn = document.getElementById('theme-toggle-btn');
+        if (!toggleBtn) return;
+
+        const icon = toggleBtn.querySelector('i');
+        if (!icon) return;
+
+        // Update icon based on current theme
+        if (this.currentTheme === 'dark') {
+            icon.className = 'ph ph-sun'; // Show sun icon when in dark mode (clicking will switch to light)
+        } else {
+            icon.className = 'ph ph-moon'; // Show moon icon when in light mode (clicking will switch to dark)
+        }
+    }
+
+    getCurrentTheme() {
+        return this.currentTheme;
+    }
+}
+
 // ==== APPLICATION INITIALIZATION ====
 class KeepNote {
     constructor() {
         this.noteManager = new NoteManager();
         this.searchEngine = null;
         this.uiManager = null;
+        this.themeManager = null;
     }
-    
+
     init() {
+        // Initialize theme first (before UI loads)
+        this.themeManager = new ThemeManager();
+        this.themeManager.init();
+
         // Load data
         const loaded = this.noteManager.loadNotes();
         if (!loaded) {
             console.warn('Failed to load notes, starting fresh');
         }
-        
+
         // Initialize components
         this.searchEngine = new SearchEngine(this.noteManager);
         this.uiManager = new UIManager(this.noteManager, this.searchEngine);
-        
+
         // Initialize UI
         this.uiManager.init();
-        
+
         console.log('KeepNote initialized successfully');
         console.log(`Loaded ${this.noteManager.notes.length} notes`);
     }

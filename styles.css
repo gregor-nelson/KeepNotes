@@ -307,6 +307,37 @@ p {
     font-weight: 500;
 }
 
+/* Theme Toggle Button - Clean minimal design */
+.theme-toggle-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    color: var(--gray-500);
+    border: none;
+    border-radius: 6px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    margin-right: var(--space-sm);
+}
+
+.theme-toggle-button:hover {
+    background: var(--gray-100);
+    color: var(--gray-700);
+}
+
+.theme-toggle-button:active {
+    transform: scale(0.95);
+}
+
+.theme-toggle-button:focus-visible {
+    outline: 2px solid var(--note-blue);
+    outline-offset: 2px;
+}
+
 /* Add Note Button - Clean minimal design */
 .add-note-button {
     display: flex;
