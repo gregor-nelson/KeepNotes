@@ -32,6 +32,14 @@
     --note-blue: #6a9cd9;    /* Deeper blue - was #aecbfa */
     --note-green: #8db841;   /* Olive green - was #ccff90 */
 
+    /* Note border colors - Dark mode */
+    --note-yellow-border: #9a6f09;
+    --note-orange-border: #b36a0c;
+    --note-pink-border: #b04a42;
+    --note-purple-border: #8357a6;
+    --note-blue-border: #5782b8;
+    --note-green-border: #729935;
+
     /* Light Mode Color Palette (for toggle) */
     --light-gray-900: #2c2c2c;
     --light-gray-800: #3a3a3a;
@@ -52,6 +60,14 @@
     --light-note-purple: #d7aefb;
     --light-note-blue: #aecbfa;
     --light-note-green: #ccff90;
+
+    /* Note border colors - Light mode */
+    --light-note-yellow-border: #f0d000;
+    --light-note-orange-border: #e8a200;
+    --light-note-pink-border: #e06b61;
+    --light-note-purple-border: #c791e8;
+    --light-note-blue-border: #92b8e8;
+    --light-note-green-border: #a8d472;
 
     /* Typography */
     --font-main: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -95,6 +111,13 @@ body.light-mode {
     --note-purple: var(--light-note-purple);
     --note-blue: var(--light-note-blue);
     --note-green: var(--light-note-green);
+
+    --note-yellow-border: var(--light-note-yellow-border);
+    --note-orange-border: var(--light-note-orange-border);
+    --note-pink-border: var(--light-note-pink-border);
+    --note-purple-border: var(--light-note-purple-border);
+    --note-blue-border: var(--light-note-blue-border);
+    --note-green-border: var(--light-note-green-border);
 
     /* Shadow System - Light mode */
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
@@ -601,32 +624,32 @@ p {
 
 .color-option[data-color="yellow"] {
     background: var(--note-yellow);
-    border-color: #f0d000;
+    border-color: var(--note-yellow-border);
 }
 
 .color-option[data-color="orange"] {
     background: var(--note-orange);
-    border-color: #e8a200;
+    border-color: var(--note-orange-border);
 }
 
 .color-option[data-color="pink"] {
     background: var(--note-pink);
-    border-color: #e06b61;
+    border-color: var(--note-pink-border);
 }
 
 .color-option[data-color="purple"] {
     background: var(--note-purple);
-    border-color: #c791e8;
+    border-color: var(--note-purple-border);
 }
 
 .color-option[data-color="blue"] {
     background: var(--note-blue);
-    border-color: #92b8e8;
+    border-color: var(--note-blue-border);
 }
 
 .color-option[data-color="green"] {
     background: var(--note-green);
-    border-color: #a8d472;
+    border-color: var(--note-green-border);
 }
 
 /* Delete Button */
