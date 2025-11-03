@@ -741,20 +741,50 @@ p {
     color: var(--gray-400);
 }
 
-/* Text contrast adjustments for colored backgrounds */
+/* Text contrast adjustments for colored backgrounds - Dark Mode First */
+/* Dark mode uses darker note colors, so we need lighter text (which is default) */
 .note-card[style*="--note-yellow"] .note-title,
-.note-card[style*="--note-orange"] .note-title {
-    color: var(--gray-900);
+.note-card[style*="--note-orange"] .note-title,
+.note-card[style*="--note-pink"] .note-title,
+.note-card[style*="--note-purple"] .note-title,
+.note-card[style*="--note-blue"] .note-title,
+.note-card[style*="--note-green"] .note-title {
+    color: var(--light-gray-50);
 }
 
 .note-card[style*="--note-yellow"] .note-content,
-.note-card[style*="--note-orange"] .note-content {
-    color: var(--gray-700);
+.note-card[style*="--note-orange"] .note-content,
+.note-card[style*="--note-pink"] .note-content,
+.note-card[style*="--note-purple"] .note-content,
+.note-card[style*="--note-blue"] .note-content,
+.note-card[style*="--note-green"] .note-content {
+    color: var(--light-gray-100);
 }
 
 .note-card[style*="--note-yellow"] .note-meta,
-.note-card[style*="--note-orange"] .note-meta {
-    color: var(--gray-500);
+.note-card[style*="--note-orange"] .note-meta,
+.note-card[style*="--note-pink"] .note-meta,
+.note-card[style*="--note-purple"] .note-meta,
+.note-card[style*="--note-blue"] .note-meta,
+.note-card[style*="--note-green"] .note-meta {
+    color: var(--light-gray-300);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Light mode overrides - bright colors need dark text */
+body.light-mode .note-card[style*="--note-yellow"] .note-title,
+body.light-mode .note-card[style*="--note-orange"] .note-title {
+    color: var(--light-gray-900);
+}
+
+body.light-mode .note-card[style*="--note-yellow"] .note-content,
+body.light-mode .note-card[style*="--note-orange"] .note-content {
+    color: var(--light-gray-700);
+}
+
+body.light-mode .note-card[style*="--note-yellow"] .note-meta,
+body.light-mode .note-card[style*="--note-orange"] .note-meta {
+    color: var(--light-gray-500);
     border-color: rgba(0, 0, 0, 0.1);
 }
 
