@@ -1809,6 +1809,7 @@ class ThemeManager {
 
         this.currentTheme = theme;
         this.updateToggleIcon();
+        this.updateHighlightTheme();
     }
 
     toggleTheme() {
@@ -1834,6 +1835,18 @@ class ThemeManager {
             icon.className = 'ph ph-sun'; // Show sun icon when in dark mode (clicking will switch to light)
         } else {
             icon.className = 'ph ph-moon'; // Show moon icon when in light mode (clicking will switch to dark)
+        }
+    }
+
+    updateHighlightTheme() {
+        const link = document.getElementById('highlight-theme');
+        if (!link) return;
+
+        // Switch highlight.js theme based on current theme
+        if (this.currentTheme === 'dark') {
+            link.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css';
+        } else {
+            link.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css';
         }
     }
 
