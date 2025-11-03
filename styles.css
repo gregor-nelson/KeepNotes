@@ -771,6 +771,42 @@ p {
     border-color: rgba(255, 255, 255, 0.1);
 }
 
+/* Card action buttons on colored backgrounds - Dark mode */
+.note-card[style*="--note-yellow"] .color-picker-toggle,
+.note-card[style*="--note-orange"] .color-picker-toggle,
+.note-card[style*="--note-pink"] .color-picker-toggle,
+.note-card[style*="--note-purple"] .color-picker-toggle,
+.note-card[style*="--note-blue"] .color-picker-toggle,
+.note-card[style*="--note-green"] .color-picker-toggle,
+.note-card[style*="--note-yellow"] .card-delete-btn,
+.note-card[style*="--note-orange"] .card-delete-btn,
+.note-card[style*="--note-pink"] .card-delete-btn,
+.note-card[style*="--note-purple"] .card-delete-btn,
+.note-card[style*="--note-blue"] .card-delete-btn,
+.note-card[style*="--note-green"] .card-delete-btn {
+    color: var(--light-gray-200);
+}
+
+.note-card[style*="--note-yellow"] .color-picker-toggle:hover,
+.note-card[style*="--note-orange"] .color-picker-toggle:hover,
+.note-card[style*="--note-pink"] .color-picker-toggle:hover,
+.note-card[style*="--note-purple"] .color-picker-toggle:hover,
+.note-card[style*="--note-blue"] .color-picker-toggle:hover,
+.note-card[style*="--note-green"] .color-picker-toggle:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--light-gray-50);
+}
+
+.note-card[style*="--note-yellow"] .card-delete-btn:hover,
+.note-card[style*="--note-orange"] .card-delete-btn:hover,
+.note-card[style*="--note-pink"] .card-delete-btn:hover,
+.note-card[style*="--note-purple"] .card-delete-btn:hover,
+.note-card[style*="--note-blue"] .card-delete-btn:hover,
+.note-card[style*="--note-green"] .card-delete-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ff6b6b;
+}
+
 /* Light mode overrides - bright colors need dark text */
 body.light-mode .note-card[style*="--note-yellow"] .note-title,
 body.light-mode .note-card[style*="--note-orange"] .note-title {
@@ -786,6 +822,25 @@ body.light-mode .note-card[style*="--note-yellow"] .note-meta,
 body.light-mode .note-card[style*="--note-orange"] .note-meta {
     color: var(--light-gray-500);
     border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .note-card[style*="--note-yellow"] .color-picker-toggle,
+body.light-mode .note-card[style*="--note-orange"] .color-picker-toggle,
+body.light-mode .note-card[style*="--note-yellow"] .card-delete-btn,
+body.light-mode .note-card[style*="--note-orange"] .card-delete-btn {
+    color: var(--light-gray-600);
+}
+
+body.light-mode .note-card[style*="--note-yellow"] .color-picker-toggle:hover,
+body.light-mode .note-card[style*="--note-orange"] .color-picker-toggle:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: var(--light-gray-700);
+}
+
+body.light-mode .note-card[style*="--note-yellow"] .card-delete-btn:hover,
+body.light-mode .note-card[style*="--note-orange"] .card-delete-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: var(--light-note-pink);
 }
 
 /* Empty State */
